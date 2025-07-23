@@ -1,24 +1,31 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        int n = s.length(), m = p.length();
+        int m = s.size(), n = p.size();
 
-    if (m == 0) return n == 0;
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
+        dp[0][0] = true;
 
-    // If next char is '*', try all possibilities
-    if (m > 1 && p[1] == '*') {
-        char prev = p[0];
-        // Try 0 or more matches of p[0]
-        for (int i = 0; i <= n; i++) {
-            if (i > 0 && !(s[i - 1] == prev || prev == '.')) break;
-
-            if (isMatch(s.substr(i), p.substr(2))) return true;
+        for (int j = 2; j <= n; j++) {
+            if (p[j - 1] == '*') {
+                dp[0][j] = dp[0][j - 2];
+            }
         }
-        return false;
-    } else if (n > 0 && (p[0] == s[0] || p[0] == '.')) {
-        // Match current char and move to next
-        return isMatch(s.substr(1), p.substr(1));
-    } else {
-        return false;
-    }}
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (p[j - 1] == '.' || p[j - 1] == s[i - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p[j - 1] == '*') {
+                    dp[i][j] = dp[i][j - 2]; 
+                    if (p[j - 2] == s[i - 1] || p[j - 2] == '.') {
+                        dp[i][j] = dp[i][j] || dp[i - 1][j]; 
+                    }
+                }
+            }
+        }
+
+        return dp[m][n];
+        
+    }
 };
