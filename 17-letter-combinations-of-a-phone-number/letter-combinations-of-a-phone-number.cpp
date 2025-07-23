@@ -18,21 +18,10 @@ public:
 
         if(n <= 0)
         return vs;
-        string first = "";
-        string second = "";
-        string third = "";
-        string fourth = "";
-
-        for(int i = 0; i<n; i++){
-            if(i == 0)
-            first = v.find(digits[i])->second;
-            else if(i == 1)
-            second = v.find(digits[i])->second;
-            else if(i == 2)
-            third = v.find(digits[i])->second;
-            else if(i == 3)
-            fourth = v.find(digits[i])->second;
-        }
+        string first = n > 0 ? v[digits[0]] : "";
+        string second = n > 1 ? v[digits[1]] : "";
+        string third = n > 2 ? v[digits[2]] : "";
+        string fourth = n > 3 ? v[digits[3]] : "";
 
         for(int i = 0; i<first.length(); i++){
             string s = "";
@@ -76,10 +65,7 @@ public:
                 if (j == second.length()-1){
                             s.pop_back();
                         goto end1;
-                        }
-
-                
-
+                        }   
             }
             }
             
