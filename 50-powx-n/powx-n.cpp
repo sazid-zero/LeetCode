@@ -1,7 +1,7 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        long long exp = n;          // use long long to handle -2^31
+        long long exp = n;         
         if (exp < 0) {
             x = 1.0 / x;
             exp = -exp;
