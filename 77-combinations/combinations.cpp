@@ -8,7 +8,6 @@ public:
             ans.push_back(path);
             return;
         }
-        // pruning: we must have enough numbers left to fill remaining slots
         for (int i = start; i <= n - (k - (int)path.size()) + 1; ++i) {
             path.push_back(i);
             dfs(i + 1, n, k);
