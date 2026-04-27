@@ -1,17 +1,18 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        map<int , int> m;
-        int maxElement = nums[0];
-        int maxCount = 0;
+        int candidate = 0;
+        int count = 0;
 
         for (int x : nums) {
-             m[x]++;
-            if (m[x] > maxCount) {
-             maxCount = m[x];
-             maxElement = x;
-    }
-}
-    return maxElement;
+            if (count == 0) {
+                candidate = x;
+                count = 1;
+            } else {
+                count += (x == candidate) ? 1 : -1;
+            }
+        }
+
+        return candidate;
     }
 };
