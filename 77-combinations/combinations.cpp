@@ -1,22 +1,20 @@
 class Solution {
-public:
-    vector<vector<int>> ans;
-    vector<int> path;
-
-    void dfs(int start, int n, int k) {
+    void backtrack(int start, int n, int k, vector<int>& path, vector<vector<int>>& res) {
         if ((int)path.size() == k) {
-            ans.push_back(path);
+            res.push_back(path);
             return;
         }
-        for (int i = start; i <= n - (k - (int)path.size()) + 1; ++i) {
+        for (int i = start; i <= n; ++i) {
             path.push_back(i);
-            dfs(i + 1, n, k);
+            backtrack(i + 1, n, k, path, res);
             path.pop_back();
         }
     }
-
+public:
     vector<vector<int>> combine(int n, int k) {
-        dfs(1, n, k);
-        return ans;
+        vector<vector<int>> res;
+        vector<int> path;
+        backtrack(1, n, k, path, res);
+        return res;
     }
 };
