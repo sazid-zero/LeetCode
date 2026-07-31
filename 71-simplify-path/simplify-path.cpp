@@ -2,32 +2,26 @@ class Solution {
 public:
     string simplifyPath(string path) {
         vector<string> st;
-        string curr;
-
-        for (int i = 0; i <= (int)path.size(); ++i) {
-            if (i == (int)path.size() || path[i] == '/') {
-                if (!curr.empty()) {
-                    if (curr == ".") {
-                       
-                    } else if (curr == "..") {
+        string comp;
+        path += '/';
+        for (char c : path) {
+            if (c == '/') {
+                if (!comp.empty()) {
+                    if (comp == "..") {
                         if (!st.empty()) st.pop_back();
-                    } else {
-                        st.push_back(curr); 
+                    } else if (comp != ".") {
+                        st.push_back(comp);
                     }
-                    curr.clear();
+                    comp.clear();
                 }
             } else {
-                curr.push_back(path[i]);
+                comp += c;
             }
         }
-
-        if (st.empty()) return "/";
-
         string res;
-        for (auto &dir : st) {
-            res.push_back('/');
-            res += dir;
+        for (const string& s : st) {
+            res += '/' + s;
         }
-        return res;
+        return res.empty() ? "/" : res;
     }
 };
